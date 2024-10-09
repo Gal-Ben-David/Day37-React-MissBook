@@ -5,20 +5,44 @@
 ul.book-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, 18em);
+    grid-auto-rows: 58em;
     gap: 30px;
 
 }
 
 .book-preview {
+    position: relative;
     display: grid;
-    gap: 10px;
+    grid-template-rows: 80px 50px max-content 20px 1fr;
+
+    gap: 20px;
     padding: 1.5em;
+    height: 100%;
 
     border-radius: 1.5em;
     background-color: whitesmoke;
 
 }
 
-.book-preview img {
+.book-preview img:not(.on-sale) {
     border-radius: 20px;
+}
+
+img.on-sale {
+    position: absolute;
+    right: 25px;
+
+    width: 50px;
+}
+
+article.on-sale {}
+
+.red {
+    font-weight: bold;
+    color: red;
+}
+
+.green {
+    font-weight: bold;
+    color: green;
 }

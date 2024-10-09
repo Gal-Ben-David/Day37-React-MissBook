@@ -1,0 +1,13 @@
+* {
+    box-sizing: border-box;
+}
+
+.full-data {
+    display: flex;
+    flex-direction: column;
+}
+
+.full-data p {
+    display: flex;
+    justify-content: space-between;
+}
