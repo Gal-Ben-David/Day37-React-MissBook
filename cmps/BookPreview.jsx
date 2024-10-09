@@ -1,7 +1,11 @@
 import { BookDetails } from "../cmps/BookDetails.jsx"
 
+export function BookPreview({ book, onToggleMoreDetails, isExpanded }) {
 
-export function BookPreview({ book }) {
+    function toggleMoreDetails() {
+        onToggleMoreDetails()
+    }
+
 
     return (
         <article className={`book-preview ${(book.listPrice.isOnSale) && 'on-sale'}`}>
@@ -12,7 +16,8 @@ export function BookPreview({ book }) {
             <p className={book.listPrice.amount > 150 ? 'red' : 'green'}>
                 {`Price: ${book.listPrice.amount}, ${book.listPrice.currencyCode}`}
             </p>
-            <BookDetails book={book} />
+            <button onClick={toggleMoreDetails}>{!isExpanded ? 'More Details' : 'Show Less'}</button>
+            {isExpanded && <BookDetails book={book} />}
         </article>
     )
 }
