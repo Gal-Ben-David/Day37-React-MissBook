@@ -5,7 +5,8 @@
 ul.book-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, 18em);
-    column-gap: 30px;
+    gap: 30px;
+
 }
 
 .book-preview {
