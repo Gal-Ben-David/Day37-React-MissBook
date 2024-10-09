@@ -1,6 +1,6 @@
 import { BookPreview } from "./BookPreview.jsx";
 
-const { useState, useEffect } = React
+const { useState } = React
 
 export function BookList({ books, onRemoveBook, onSelectBookId }) {
 

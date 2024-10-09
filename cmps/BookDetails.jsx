@@ -1,3 +1,5 @@
+import { LongTxt } from "../cmps/LongTxt.jsx"
+
 export function BookDetails({ book }) {
 
     let levelReading
@@ -10,16 +12,20 @@ export function BookDetails({ book }) {
 
     return (
         <article className="full-data">
-            <p>{book.description}</p>
+            <div><LongTxt txt={book.description} /></div>
+
             <p>Auth {book.authors.map((author, i) =>
                 <span key={i}>{author}</span>
             )}</p>
+
             <p>Pub Date  <span> {`${book.publishedDate} (${agePubDate})`}</span></p>
             <p>Pgs <span> {`${book.pageCount} (${levelReading})`}</span></p>
             <p>Lang <span>{book.language}</span></p>
+
             <p>Cats <span>{book.categories.map((category, i) =>
-                <span key={i}>{category}</span>
+                <span key={i}>{category}{i < book.categories.length - 1 && ', '}</span>
             )}</span></p>
+
             <p>SKU <span>{book.id}</span></p>
 
         </article>
