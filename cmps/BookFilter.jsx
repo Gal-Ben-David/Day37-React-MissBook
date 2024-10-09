@@ -29,8 +29,7 @@ export function BookFilter({ filterBy, onSetFilter }) {
 
     const { title, price } = filterByToEdit
     return (
-        <section className="car-filter">
-            <h2>Filter Books</h2>
+        <section className="book-filter">
             <form>
                 <label htmlFor="book-title">Book Title</label>
                 <input onChange={handleChange} value={title} type="text" name="title" id="book-title" />
@@ -38,7 +37,7 @@ export function BookFilter({ filterBy, onSetFilter }) {
                 <label htmlFor="book-price">Price</label>
                 <input onChange={handleChange} value={price} type="number" name="price" id="book-price" />
 
-                <button>Submit</button>
+                <button>Search</button>
             </form>
         </section>
     )

@@ -31,8 +31,13 @@ a {
   color: unset;
 }
 
+ul {
+  padding: 0;
+}
+
 li {
   list-style-type: none;
+
 }
 
 /* Dont stretch my Media */
@@ -46,4 +51,14 @@ object {
 /* Simple and useful CSS Debugging Technique */
 .debug * {
   outline: 1px solid gold
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  width: 80vw;
+  max-width: 1500px;
 }
