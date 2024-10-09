@@ -12,7 +12,15 @@ export function BookEdit({ onSetNewBook }) {
                 amount: price,
                 currencyCode: 'EUR',
                 isOnSale: false
-            }
+            },
+            subtitle: 'placerat nisi sodales suscipit tellus',
+            authors: [],
+            publishedDate: '',
+            description: 'placerat nisi sodales suscipit tellus',
+            pageCount: 100,
+            categories: [],
+            thumbnail: 'assets/img/book.png',
+            language: ''
         }
 
         onSetNewBook(newBook)
