@@ -31,7 +31,9 @@ a {
   color: unset;
 }
 
-
+li {
+  list-style-type: none;
+}
 
 /* Dont stretch my Media */
 img,

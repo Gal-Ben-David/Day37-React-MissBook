@@ -1,4 +1,5 @@
 import { bookService } from "../services/book.service.js"
+import { BookList } from "../cmps/bookList.jsx"
 
 const { useState, useEffect } = React
 
@@ -23,18 +24,8 @@ export function BookIndex() {
     if (!books) return <div>Loading...</div>
 
     return (
-        <article className="book-list">
-            <ul className="book-card">
-                {books.map(book =>
-                    <li key={book.id}>
-                        <h2>{book.title}</h2>
-                        <p>{book.desc}</p>
-                        <img src={book.imgSrc} />
-                        <p>{`Price: ${book.listPrice.amount}, ${book.listPrice.currencyCode}`}</p>
-                    </li>
-                )}
-            </ul>
-
-        </article>
+        <article className="books">
+            <BookList books={books} />
+        </article >
     )
 }
