@@ -1,0 +1,23 @@
+* {
+    box-sizing: border-box;
+}
+
+ul.book-card {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 18em);
+    column-gap: 30px;
+}
+
+.book-card li {
+    display: grid;
+    gap: 10px;
+    padding: 1.5em;
+
+    border-radius: 1.5em;
+    background-color: whitesmoke;
+    list-style-type: none;
+}
+
+.book-card img {
+    border-radius: 20px;
+}
