@@ -45,7 +45,7 @@ export function BookEdit() {
                 value = target.checked
                 break
         }
-        setBookToEdit((prevBook) => ({ ...prevBook, listPrice: { ...book.listPrice, [field]: value } }))
+        setBookToEdit((prevBook) => ({ ...prevBook, listPrice: { ...bookToEdit.listPrice, [field]: value } }))
     }
 
     function onSaveBook(ev) {
