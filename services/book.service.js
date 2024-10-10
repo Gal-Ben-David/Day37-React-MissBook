@@ -456,6 +456,7 @@ export const bookService = {
     save,
     getEmptyBook,
     getDefaultFilter,
+    addReview
 }
 
 function query(filterBy = {}) {
@@ -495,6 +496,18 @@ function getEmptyBook(title = '', listPrice = {}, description = '', thumbnail = 
 
 function getDefaultFilter() {
     return { title: '', price: '' }
+}
+
+function addReview(bookId, review) {
+    get(bookId)
+        .then(book => {
+            if (!book.reviews) {
+                book.reviews = []
+            }
+            book.reviews.push(review)
+
+            return storageService.put(BOOK_KEY, book)
+        })
 }
 
 function _createBooks() {
