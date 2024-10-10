@@ -1,4 +1,13 @@
-export function BookEdit({ onSetNewBook }) {
+const { useState, useEffect } = React
+
+export function BookEdit({ onSetNewBook, book }) {
+
+    const [formData, setFormData] = useState(
+        {
+            title: '',
+            price: '',
+        }
+    )
 
     function onAddBook(ev) {
         ev.preventDefault()
@@ -29,7 +38,11 @@ export function BookEdit({ onSetNewBook }) {
     return (
         <form onSubmit={onAddBook}>
             <label htmlFor="book-title">Book Title</label>
-            <input type="text" name="title" id="book-title" />
+            <input
+                value={book ? book.title : ''}
+                type="text"
+                name="title"
+                id="book-title" />
 
             <label htmlFor="book-price">Price</label>
             <input type="number" name="price" id="book-price" />
