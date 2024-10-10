@@ -1,11 +1,10 @@
+const { Link } = ReactRouterDOM
+
 import { BookDetails } from "../cmps/BookDetails.jsx"
-import { BookEdit } from "../cmps/BookEdit.jsx"
 
 const { useState } = React
 
 export function BookPreview({ book, onToggleMoreDetails, isExpanded }) {
-
-    const [isEditBookMode, setEditBookMode] = useState(false)
 
     function toggleMoreDetails() {
         onToggleMoreDetails()
@@ -32,8 +31,9 @@ export function BookPreview({ book, onToggleMoreDetails, isExpanded }) {
                 {`Price: ${listPrice.amount}, ${listPrice.currencyCode}`}
             </p>
 
-            <button onClick={onToggleEditBook}>Edit Book</button>
-            {(isEditBookMode) && <BookEdit book={book} />}
+            <div>
+                <Link to={`/book/edit/${book.id}`}><button>Edit</button></Link>
+            </div>
 
             <button onClick={toggleMoreDetails}>{!isExpanded ? 'More Details' : 'Show Less'}</button>
             {isExpanded && <BookDetails book={book} />}
