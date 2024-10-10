@@ -466,7 +466,7 @@ function query(filterBy = {}) {
                 books = books.filter(book => regExp.test(book.title))
             }
             if (filterBy.price) {
-                books = books.filter(book => book.listPrice.amount >= filterBy.price)
+                books = books.filter(book => book.listPrice.amount <= filterBy.price)
             }
             return books
         })

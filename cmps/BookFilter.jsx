@@ -35,7 +35,7 @@ export function BookFilter({ filterBy, onSetFilter }) {
                 <input onChange={handleChange} value={title} type="text" name="title" id="book-title" />
 
                 <label htmlFor="book-price">Price</label>
-                <input onChange={handleChange} value={price} type="number" name="price" id="book-price" />
+                <input onChange={handleChange} value={price || ''} type="number" name="price" id="book-price" />
 
                 <button>Search</button>
             </form>

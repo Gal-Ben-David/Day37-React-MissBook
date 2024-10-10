@@ -5,16 +5,21 @@ export function BookPreview({ book, onToggleMoreDetails, isExpanded }) {
     function toggleMoreDetails() {
         onToggleMoreDetails()
     }
-
+    const {
+        title,
+        subtitle,
+        thumbnail,
+        listPrice
+    } = book
 
     return (
-        <article className={`book-preview ${(book.listPrice.isOnSale) && 'on-sale'}`}>
-            {(book.listPrice.isOnSale) && <img className="on-sale" src="assets/img/sale.png" />}
-            <h2>{book.title}</h2>
-            <p>{book.subtitle}</p>
-            <img src={book.thumbnail} />
-            <p className={book.listPrice.amount > 150 ? 'red' : 'green'}>
-                {`Price: ${book.listPrice.amount}, ${book.listPrice.currencyCode}`}
+        <article className={`book-preview ${(listPrice.isOnSale) && 'on-sale'}`}>
+            {(listPrice.isOnSale) && <img className="on-sale" src="assets/img/sale.png" />}
+            <h2>{title}</h2>
+            <p>{subtitle}</p>
+            <img src={thumbnail} />
+            <p className={listPrice.amount > 150 ? 'red' : 'green'}>
+                {`Price: ${listPrice.amount}, ${listPrice.currencyCode}`}
             </p>
             <button onClick={toggleMoreDetails}>{!isExpanded ? 'More Details' : 'Show Less'}</button>
             {isExpanded && <BookDetails book={book} />}

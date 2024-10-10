@@ -13,12 +13,13 @@ export function LongTxt({ txt, length = 100 }) {
         onToggleReadMore()
     }
 
-    const text = (expandedText) ? txt : txt.substring(0, length) + '...'
+    const isLongText = txt.length > length
+    const text = (expandedText || !isLongText) ? txt : txt.substring(0, length) + '...'
 
     return (
         <p>
             <span>{text}
-                <a className="long-text" href="#" onClick={handleClick}>{!expandedText ? ' Read more' : ' Show less'}</a></span>
+                <a className="long-text" href="#" onClick={handleClick}>{isLongText && (!expandedText ? ' Read more' : ' Show less')}</a></span>
         </p>
     )
 
