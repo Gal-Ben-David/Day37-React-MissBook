@@ -490,8 +490,8 @@ function save(book) {
     }
 }
 
-function getEmptyBook(title = '', listPrice = {}, description = '', thumbnail = '', subtitle = '', authors = [], publishedDate = '', pageCount, categories = [], language = '') {
-    return { title, listPrice, description, thumbnail, subtitle, authors, publishedDate, pageCount, categories, language }
+function getEmptyBook(title = '', listPrice = {}, description = '', thumbnail = '', subtitle = '', authors = [], publishedDate = '', pageCount, categories = [], language = '', reviews = []) {
+    return { title, listPrice, description, thumbnail, subtitle, authors, publishedDate, pageCount, categories, language, reviews }
 }
 
 function getDefaultFilter() {
@@ -499,12 +499,9 @@ function getDefaultFilter() {
 }
 
 function addReview(bookId, review) {
-    get(bookId)
+    return get(bookId)
         .then(book => {
-            if (!book.reviews) {
-                book.reviews = []
-            }
-            book.reviews.push(review)
+            book.reviews.unshift(review)
 
             return storageService.put(BOOK_KEY, book)
         })
@@ -545,8 +542,8 @@ function _createBooks() {
     }
 }
 
-function _createBook(title, listPrice, description, thumbnail, subtitle, authors, publishedDate, pageCount, categories, language) {
-    const book = getEmptyBook(title, listPrice, description, thumbnail, subtitle, authors, publishedDate, pageCount, categories, language)
+function _createBook(title, listPrice, description, thumbnail, subtitle, authors, publishedDate, pageCount, categories, language, reviews) {
+    const book = getEmptyBook(title, listPrice, description, thumbnail, subtitle, authors, publishedDate, pageCount, categories, language, reviews)
     book.id = makeId()
     return book
 }

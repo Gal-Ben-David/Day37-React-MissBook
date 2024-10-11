@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 
-.review img {
+.book-review img {
     width: 40px;
     margin-inline-end: 0.5em;
     cursor: pointer;

@@ -5,9 +5,9 @@ const { useState, useEffect } = React
 
 export function AddReview() {
 
-
     const [bookToReview, setBookToReview] = useState(bookService.getEmptyBook())
     const [starsReview, setStarsReview] = useState(0)
+    const [isAddedReview, setIsAddedReview] = useState(false)
     const [fullReview, setFullReview] = useState({
         fullname: '',
         rating: 0,
@@ -23,6 +23,16 @@ export function AddReview() {
     useEffect(() => {
         console.log(starsReview)
     }, [starsReview])
+
+    useEffect(() => {
+        setStarsReview(0)
+        setFullReview({
+            fullname: '',
+            rating: 0,
+            date: '1990-03-28',
+        })
+        loadBook()
+    }, [isAddedReview])
 
     function loadBook() {
         bookService.get(bookId).then(setBookToReview)
@@ -53,14 +63,20 @@ export function AddReview() {
         setFullReview(prevReview => ({ ...prevReview, [field]: value }))
     }
 
-    function onSaveReview() {
+    function onSaveReview(ev) {
+        ev.preventDefault()
         bookService.addReview(bookId, fullReview)
+            .then(() => {
+                setIsAddedReview(isAddedReview => !isAddedReview)
+            })
+            .catch(err => console.log(err))
     }
 
     console.log(bookToReview)
+    const { reviews } = bookToReview
     return (
-        <section>
-            <h1>Reviews for...</h1>
+        <section className="book-review">
+            <h1>Reviews for {bookToReview.title}</h1>
 
             <h2>Add your review</h2>
             <form className="review" onSubmit={onSaveReview}>
@@ -70,6 +86,7 @@ export function AddReview() {
                         type='text'
                         placeholder='Enter your name'
                         name='fullname'
+                        value={fullReview.fullname}
                         onChange={handleChange}
                     />
                 </div>
@@ -83,7 +100,12 @@ export function AddReview() {
 
                 <div className="review-date">
                     <label htmlFor="date">Date</label>
-                    <input onChange={handleChange} value={fullReview.date} type="date" id="date" name="date"></input>
+                    <input
+                        onChange={handleChange}
+                        value={fullReview.date}
+                        type="date"
+                        id="date"
+                        name="date"></input>
                 </div>
 
                 <div>
@@ -93,7 +115,22 @@ export function AddReview() {
                 </div>
             </form>
 
+
             <h2>All Reviews</h2>
+            <ul>
+                {!reviews.length ? 'No review yet...' : reviews.length !== 0 && reviews.map((review, i) =>
+                    <li key={i}>
+                        <span>{review.fullname} </span>
+                        <span>
+                            {[...Array(5)].map((_, i) =>
+                                <img key={i} src={`assets/img/${i < review.rating ? 'full' : 'empty'}-star.png`} />
+                            )}
+                        </span>
+                        <span>{review.date} </span>
+                    </li>
+                )}
+            </ul>
+
         </section>
 
     )
