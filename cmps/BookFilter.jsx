@@ -32,10 +32,22 @@ export function BookFilter({ filterBy, onSetFilter }) {
         <section className="book-filter">
             <form>
                 <label htmlFor="book-title">Book Title</label>
-                <input onChange={handleChange} value={title} type="text" name="title" id="book-title" />
+                <input
+                    onChange={handleChange}
+                    value={title}
+                    type="text"
+                    name="title"
+                    id="book-title"
+                    placeholder="Search by title" />
 
                 <label htmlFor="book-price">Price</label>
-                <input onChange={handleChange} value={price || ''} type="number" name="price" id="book-price" />
+                <input
+                    onChange={handleChange}
+                    value={price || ''}
+                    type="number"
+                    name="price"
+                    id="book-price"
+                    placeholder="Search by price" />
 
                 <button>Search</button>
             </form>

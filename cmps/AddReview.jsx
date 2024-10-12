@@ -98,9 +98,9 @@ export function AddReview() {
             <BookDetails book={bookToReview} />
 
             <h2>Add your review</h2>
-            <form className="review" onSubmit={onSaveReview}>
+            <form onSubmit={onSaveReview}>
                 <div className='review-name'>
-                    <label className='review-full-name'>Full Name:</label>
+                    <label className='review-full-name'>Full Name</label>
                     <input
                         type='text'
                         placeholder='Enter your name'
@@ -138,7 +138,7 @@ export function AddReview() {
             <h2>All Reviews</h2>
             <ul>
                 {!reviews.length ? 'No review yet...' : reviews.length !== 0 && reviews.map((review, i) =>
-                    <li key={i}>
+                    <li className="review" key={i}>
                         <span>{review.fullname} </span>
                         <span>
                             {[...Array(5)].map((_, i) =>

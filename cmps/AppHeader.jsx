@@ -5,14 +5,12 @@ const { Link, NavLink } = ReactRouterDOM
 export function AppHeader() {
     return (
         <header className="app-header full main-layout">
-            <section>
-                <h1>📚 MissBooks</h1>
-                <nav className="app-nav">
-                    <NavLink to="/home">Home</NavLink>
-                    <NavLink to="/about">About</NavLink>
-                    <NavLink to="/book" >Books</NavLink>
-                </nav>
-            </section>
+            <h1>📚 MissBooks</h1>
+            <nav className="app-nav">
+                <NavLink className="nav" to="/home">Home</NavLink>
+                <NavLink className="nav" to="/about">About</NavLink>
+                <NavLink className="nav" to="/book" >Books</NavLink>
+            </nav>
         </header>
     )
 }

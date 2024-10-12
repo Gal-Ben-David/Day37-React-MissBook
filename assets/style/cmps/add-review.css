@@ -2,8 +2,51 @@
     box-sizing: border-box;
 }
 
+.book-review {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    margin-block-start: 20px;
+    margin-block-end: 50px;
+}
+
+.book-review h2,
+.book-review h1 {
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 0.2em;
+
+}
+
+.book-review form {
+    display: flex;
+    align-items: center;
+    gap: 2em;
+
+    background-color: whitesmoke;
+    padding: 3em;
+    border-radius: 2em;
+}
+
+.book-review form label {
+    margin-inline-end: 0.8em;
+}
+
 .book-review img {
     width: 30px;
     margin-inline-end: 0.5em;
     cursor: pointer;
+}
+
+li.review {
+    display: flex;
+    align-items: center;
+    gap: 2em;
+    padding: 2em;
+    border-radius: 2em;
+}
+
+li.review:nth-child(odd) {
+    background-color: whitesmoke;
+
 }

@@ -33,7 +33,7 @@ export function BookPreview({ book, onToggleMoreDetails, isExpanded }) {
 
             <div>
                 <Link to={`/book/edit/${book.id}`}><button>Edit</button></Link>
-                <Link to={`/book/review/${book.id}`}><button>Add Review</button></Link>
+                <Link to={`/book/review/${book.id}`}><button>Show Reviews</button></Link>
             </div>
 
             <button onClick={toggleMoreDetails}>{!isExpanded ? 'More Details' : 'Show Less'}</button>

@@ -5,6 +5,7 @@
 .book-filter {
     display: flex;
     flex-direction: column;
+    margin-block-start: 20px;
 }
 
 form {
