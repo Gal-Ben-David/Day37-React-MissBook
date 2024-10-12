@@ -1,5 +1,6 @@
 const { useNavigate, useParams } = ReactRouterDOM
 import { bookService } from "../services/book.service.js"
+import { BookDetails } from "../cmps/BookDetails.jsx"
 
 const { useState, useEffect } = React
 
@@ -73,10 +74,12 @@ export function AddReview() {
     }
 
     console.log(bookToReview)
-    const { reviews } = bookToReview
+    const { thumbnail, reviews } = bookToReview
     return (
         <section className="book-review">
             <h1>Reviews for {bookToReview.title}</h1>
+            <img src={thumbnail} />
+            <BookDetails book={bookToReview} />
 
             <h2>Add your review</h2>
             <form className="review" onSubmit={onSaveReview}>
@@ -127,6 +130,7 @@ export function AddReview() {
                             )}
                         </span>
                         <span>{review.date} </span>
+                        <button>Delete</button>
                     </li>
                 )}
             </ul>
