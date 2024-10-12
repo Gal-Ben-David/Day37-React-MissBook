@@ -38,15 +38,6 @@ export function BookIndex() {
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterByToEdit }))
     }
 
-    function onSetNewBook(newBook) {
-
-        bookService.save(newBook)
-            .then((savedBook) => {
-                setNewBook(savedBook)
-            })
-            .catch(err => console.log('err', err))
-    }
-
     function onToggleEditBook() {
         setEditBookMode(isEditBookMode => !isEditBookMode)
     }
@@ -59,6 +50,10 @@ export function BookIndex() {
 
             <div>
                 <Link to="/book/edit"><button>Add Book</button></Link>
+            </div>
+
+            <div>
+                <Link to="/book/Add"><button>Add Book from Google API</button></Link>
             </div>
 
             {/* <button onClick={onToggleEditBook}>Add Book</button>

@@ -456,7 +456,8 @@ export const bookService = {
     save,
     getEmptyBook,
     getDefaultFilter,
-    addReview
+    addReview,
+    addGoogleBook
 }
 
 function query(filterBy = {}) {
@@ -505,6 +506,45 @@ function addReview(bookId, review) {
 
             return storageService.put(BOOK_KEY, book)
         })
+}
+
+function addGoogleBook(googleBook) {
+    let books = loadFromStorage(BOOK_KEY)
+    const { volumeInfo = {}, saleInfo = {} } = googleBook
+
+    const existBook = books.some(book => book.title === volumeInfo.title)
+    if (existBook) return null
+
+    const {
+        title = 'Unknown Title',
+        subtitle = '',
+        publishedDate = 'N/A',
+        description = 'No description available',
+        pageCount = 0,
+        categories = [],
+        language = 'Unknown',
+        authors = ['Unknown Author'],
+        imageLinks = {}
+    } = volumeInfo
+
+    const convertedBook = {
+        title,
+        publishedDate,
+        description,
+        pageCount,
+        categories,
+        thumbnail: imageLinks.thumbnail || '',
+        language,
+        authors,
+        reviews: [],
+        subtitle: subtitle,
+        listPrice: {
+            amount: 100,
+            currencyCode: saleInfo.country || 'USD',
+            isOnSale: false
+        }
+    }
+    return convertedBook
 }
 
 function _createBooks() {

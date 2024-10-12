@@ -54,11 +54,11 @@ export function BookEdit() {
         bookService.save(bookToEdit)
             .then(book => {
                 console.log('Book Saved')
-                showSuccessMsg('Book has been updated successfully')
+                showSuccessMsg('Book has been saved successfully')
             })
             .catch(err => {
                 console.log('err:', err)
-                showErrorMsg(`Problems updating book (${bookId})`)
+                showErrorMsg(`Problems saving book (${bookId})`)
             })
             .finally(() => {
                 navigate('/book')
