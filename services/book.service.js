@@ -457,6 +457,7 @@ export const bookService = {
     getEmptyBook,
     getDefaultFilter,
     addReview,
+    deleteReview,
     addGoogleBook
 }
 
@@ -504,6 +505,14 @@ function addReview(bookId, review) {
         .then(book => {
             book.reviews.unshift(review)
 
+            return storageService.put(BOOK_KEY, book)
+        })
+}
+
+function deleteReview(bookId, reviewIdx) {
+    return get(bookId)
+        .then(book => {
+            book.reviews.splice(reviewIdx, 1)
             return storageService.put(BOOK_KEY, book)
         })
 }

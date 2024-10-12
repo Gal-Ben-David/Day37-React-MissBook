@@ -9,6 +9,8 @@ export function AddReview() {
     const [bookToReview, setBookToReview] = useState(bookService.getEmptyBook())
     const [starsReview, setStarsReview] = useState(0)
     const [isAddedReview, setIsAddedReview] = useState(false)
+    const [isDeletedReview, setIsDeletedReview] = useState(false)
+
     const [fullReview, setFullReview] = useState({
         fullname: '',
         rating: 0,
@@ -34,6 +36,11 @@ export function AddReview() {
         })
         loadBook()
     }, [isAddedReview])
+
+    useEffect(() => {
+        loadBook()
+    }, [isDeletedReview])
+
 
     function loadBook() {
         bookService.get(bookId).then(setBookToReview)
@@ -69,6 +76,15 @@ export function AddReview() {
         bookService.addReview(bookId, fullReview)
             .then(() => {
                 setIsAddedReview(isAddedReview => !isAddedReview)
+            })
+            .catch(err => console.log(err))
+    }
+
+    function onDeleteReview(reviewIdx) {
+        bookService.deleteReview(bookId, reviewIdx)
+            .then(updatedBook => {
+                setBookToReview(updatedBook)
+                setIsDeletedReview(isDeletedReview => !isDeletedReview)
             })
             .catch(err => console.log(err))
     }
@@ -130,7 +146,7 @@ export function AddReview() {
                             )}
                         </span>
                         <span>{review.date} </span>
-                        <button>Delete</button>
+                        <button onClick={() => onDeleteReview(i)}>Delete</button>
                     </li>
                 )}
             </ul>
