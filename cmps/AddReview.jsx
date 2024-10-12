@@ -1,4 +1,4 @@
-const { useNavigate, useParams } = ReactRouterDOM
+const { useNavigate, useParams, Link } = ReactRouterDOM
 import { bookService } from "../services/book.service.js"
 import { BookDetails } from "../cmps/BookDetails.jsx"
 
@@ -19,7 +19,7 @@ export function AddReview() {
 
     useEffect(() => {
         if (bookId) loadBook()
-    }, [])
+    }, [bookId])
 
     useEffect(() => {
         console.log(starsReview)
@@ -73,8 +73,8 @@ export function AddReview() {
             .catch(err => console.log(err))
     }
 
-    console.log(bookToReview)
     const { thumbnail, reviews } = bookToReview
+
     return (
         <section className="book-review">
             <h1>Reviews for {bookToReview.title}</h1>
@@ -134,6 +134,11 @@ export function AddReview() {
                     </li>
                 )}
             </ul>
+
+            <section>
+                <button ><Link to={`/book/review/${bookToReview.prevBookId}`}>Prev Book</Link></button>
+                <button ><Link to={`/book/review/${bookToReview.nextBookId}`}>Next Book</Link></button>
+            </section>
 
         </section>
 

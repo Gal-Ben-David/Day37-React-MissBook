@@ -474,7 +474,7 @@ function query(filterBy = {}) {
 }
 
 function get(bookId) {
-    return storageService.get(BOOK_KEY, bookId)
+    return storageService.get(BOOK_KEY, bookId).then(_setNextPrevCarId)
 }
 
 function remove(bookId) {
@@ -546,4 +546,16 @@ function _createBook(title, listPrice, description, thumbnail, subtitle, authors
     const book = getEmptyBook(title, listPrice, description, thumbnail, subtitle, authors, publishedDate, pageCount, categories, language, reviews)
     book.id = makeId()
     return book
+}
+
+function _setNextPrevCarId(book) {
+    return query().then((books) => {
+        const bookIdx = books.findIndex((currBook) => currBook.id === book.id)
+        const nextBook = books[bookIdx + 1] ? books[bookIdx + 1] : books[0]
+        const prevBook = books[bookIdx - 1] ? books[bookIdx - 1] : books[books.length - 1]
+        book.nextBookId = nextBook.id
+        book.prevBookId = prevBook.id
+        console.log(nextBook.id, prevBook.id)
+        return book
+    })
 }
