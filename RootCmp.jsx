@@ -5,6 +5,7 @@ const { Routes, Route, Navigate } = ReactRouterDOM
 import { AppHeader } from "./cmps/AppHeader.jsx"
 import { Home } from "./pages/Home.jsx"
 import { About } from "./pages/About.jsx"
+import { Dashboard } from "./pages/Dashboard.jsx"
 import { BookIndex } from "./pages/BookIndex.jsx"
 import { BookDetails } from "./cmps/BookDetails.jsx"
 import { BookEdit } from "./cmps/BookEdit.jsx"
@@ -24,6 +25,7 @@ export function App() {
                         <Route path="/home" element={<Home />} />
 
                         <Route path="/about" element={<About />} />
+                        <Route path="/dashboard" element={<Dashboard />} />
 
                         <Route path="/book" element={<BookIndex />} />
                         <Route path="/book/:bookId" element={<BookDetails />} />

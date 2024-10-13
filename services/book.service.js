@@ -461,7 +461,9 @@ export const bookService = {
     addGoogleBook,
     fetchBookFromGoogleById,
     fetchBookFromGoogleByTitle,
-    getFilterFromSearchParams
+    getFilterFromSearchParams,
+    _countCategories,
+    getCategoryStats
 }
 
 function query(filterBy = {}) {
@@ -634,6 +636,36 @@ function getFilterFromSearchParams(searchParams) {
         title,
         price
     }
+}
+
+function getCategoryStats() {
+    return storageService.query(BOOK_KEY)
+        .then(books => {
+            console.log(books)
+            return _countCategories(books)
+        })
+        .then(counter => {
+            const data = Object.keys(counter).map(category => ({ title: category, value: counter[category] }))
+            console.log(data)
+            return data
+        })
+}
+
+function _countCategories() {
+    return query(BOOK_KEY)
+        .then(books => {
+            const categoriesCounter = books.reduce((acc, book) => {
+                const { categories } = book
+                categories.map(category => {
+                    if (!acc[category]) acc[category] = 0
+                    acc[category]++
+                })
+                return acc
+            }, {})
+
+            console.log('counter', categoriesCounter)
+            return categoriesCounter
+        })
 }
 
 function _setNextPrevCarId(book) {

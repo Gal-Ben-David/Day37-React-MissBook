@@ -14,12 +14,12 @@
 }
 
 .nav {
-    width: 5em;
+    width: 6em;
+    height: 100%;
     text-align: center;
 }
 
 .nav:hover {
-
     background-color: white;
     border-radius: 100vh;
 }
