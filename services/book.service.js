@@ -460,7 +460,8 @@ export const bookService = {
     deleteReview,
     addGoogleBook,
     fetchBookFromGoogleById,
-    fetchBookFromGoogleByTitle
+    fetchBookFromGoogleByTitle,
+    getFilterFromSearchParams
 }
 
 function query(filterBy = {}) {
@@ -624,6 +625,15 @@ function _createBook(title, listPrice, description, thumbnail, subtitle, authors
     const book = getEmptyBook(title, listPrice, description, thumbnail, subtitle, authors, publishedDate, pageCount, categories, language, reviews)
     book.id = makeId()
     return book
+}
+
+function getFilterFromSearchParams(searchParams) {
+    const title = searchParams.get('title') || ''
+    const price = searchParams.get('price') || ''
+    return {
+        title,
+        price
+    }
 }
 
 function _setNextPrevCarId(book) {
