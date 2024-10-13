@@ -22,7 +22,7 @@ export function Dashboard() {
 
     return (
         <section className="dashboard">
-            <h1>Dashboard</h1>
+            <h1>Dashboard 📊</h1>
             <h2>Statistics for {books.length} Books</h2>
             <Chart data={categoryStats} />
         </section>

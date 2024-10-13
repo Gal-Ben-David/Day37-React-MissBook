@@ -566,13 +566,16 @@ function addGoogleBook(googleBook) {
                 imageLinks = {}
             } = volumeInfo
 
+            const splittedCategories = categories.map(category => category.split('/').map(cat => cat.trim())).flat()
+            const uniqueCategories = [...new Set(splittedCategories)]
+
             const convertedBook = {
                 id,
                 title,
                 publishedDate,
                 description,
                 pageCount,
-                categories,
+                categories: uniqueCategories,
                 thumbnail: imageLinks.thumbnail || '',
                 language,
                 authors,
