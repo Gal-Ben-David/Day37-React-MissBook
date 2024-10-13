@@ -5,7 +5,8 @@ export const utilService = {
     getRandomIntInclusive,
     loadFromStorage,
     saveToStorage,
-    debounce
+    debounce,
+    animateCSS
 }
 
 export function makeId(length = 6) {
