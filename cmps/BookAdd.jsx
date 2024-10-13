@@ -33,14 +33,14 @@ export function BookAdd() {
     }
 
     function handleChange(ev) {
-        setSearchBook(ev.target.value)
+        setSearchBook(ev.target.value.trim())
     }
 
     function addBookToDB(bookId) {
         return fetch(`https://www.googleapis.com/books/v1/volumes/${bookId}`)
             .then(response => response.json())
             .then(bookService.addGoogleBook)
-            .then(bookService.save).
+            .then(convertedBook => bookService.save(convertedBook, true)).
             then(book => {
                 console.log('Book Saved')
                 showSuccessMsg('Book has been saved successfully')

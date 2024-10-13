@@ -484,12 +484,10 @@ function remove(bookId) {
     return storageService.remove(BOOK_KEY, bookId)
 }
 
-function save(book) {
-    if (book.id) {
+function save(book, isGoogleBook = false) {
+    if (book.id && !isGoogleBook) {
         return storageService.put(BOOK_KEY, book)
-    } else {
-        return storageService.post(BOOK_KEY, book)
-    }
+    } else return storageService.post(BOOK_KEY, book, isGoogleBook)
 }
 
 function getEmptyBook(title = '', listPrice = {}, description = '', thumbnail = '', subtitle = '', authors = [], publishedDate = '', pageCount, categories = [], language = '', reviews = []) {
@@ -518,42 +516,50 @@ function deleteReview(bookId, reviewIdx) {
 }
 
 function addGoogleBook(googleBook) {
-    let books = loadFromStorage(BOOK_KEY)
-    const { volumeInfo = {}, saleInfo = {} } = googleBook
+    return query()
+        .then(books => {
+            const existBook = books.some(book => book.id === googleBook.id)
+            if (existBook) {
+                console.log("Book already exists in the database")
+                return Promise.reject("Book already exists")
+            }
+            return books
+        })
+        .then(() => {
+            const { id, volumeInfo = {}, saleInfo = {} } = googleBook
 
-    const existBook = books.some(book => book.title === volumeInfo.title)
-    if (existBook) return null
+            const {
+                title = 'Unknown Title',
+                subtitle = '',
+                publishedDate = 'N/A',
+                description = 'No description available',
+                pageCount = 0,
+                categories = [],
+                language = 'Unknown',
+                authors = ['Unknown Author'],
+                imageLinks = {}
+            } = volumeInfo
 
-    const {
-        title = 'Unknown Title',
-        subtitle = '',
-        publishedDate = 'N/A',
-        description = 'No description available',
-        pageCount = 0,
-        categories = [],
-        language = 'Unknown',
-        authors = ['Unknown Author'],
-        imageLinks = {}
-    } = volumeInfo
-
-    const convertedBook = {
-        title,
-        publishedDate,
-        description,
-        pageCount,
-        categories,
-        thumbnail: imageLinks.thumbnail || '',
-        language,
-        authors,
-        reviews: [],
-        subtitle: subtitle,
-        listPrice: {
-            amount: 100,
-            currencyCode: saleInfo.country || 'USD',
-            isOnSale: false
-        }
-    }
-    return convertedBook
+            const convertedBook = {
+                id,
+                title,
+                publishedDate,
+                description,
+                pageCount,
+                categories,
+                thumbnail: imageLinks.thumbnail || '',
+                language,
+                authors,
+                reviews: [],
+                subtitle: subtitle,
+                listPrice: {
+                    amount: 100,
+                    currencyCode: saleInfo.country || 'USD',
+                    isOnSale: false
+                }
+            }
+            return convertedBook
+        })
 }
 
 function _createBooks() {
