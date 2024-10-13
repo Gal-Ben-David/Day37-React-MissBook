@@ -10,7 +10,7 @@ ul.book-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, 18em);
 
-    gap: 30px;
+    gap: 55px;
     justify-content: center;
 
     margin-block-end: 50px;
