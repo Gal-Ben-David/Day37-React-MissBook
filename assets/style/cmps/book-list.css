@@ -27,6 +27,14 @@ ul.book-list {
 
     border-radius: 1.5em;
     background-color: whitesmoke;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+.book-preview:hover {
+    transform: scale(1.02);
 }
 
 .book-list li {

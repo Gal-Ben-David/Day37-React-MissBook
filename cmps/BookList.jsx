@@ -2,7 +2,7 @@ import { BookPreview } from "./BookPreview.jsx";
 
 const { useState } = React
 
-export function BookList({ books, onRemoveBook, onSelectBookId }) {
+export function BookList({ books, removeBook, onSelectBookId }) {
 
     const [expandedBookId, setExpandedBookId] = useState(null)
 
@@ -14,7 +14,11 @@ export function BookList({ books, onRemoveBook, onSelectBookId }) {
         <ul className="book-list">
             {books.map(book =>
                 <li key={book.id}>
-                    <BookPreview book={book} onToggleMoreDetails={() => onToggleMoreDetails(book.id)} isExpanded={expandedBookId === book.id} />
+                    <BookPreview
+                        book={book}
+                        onToggleMoreDetails={() => onToggleMoreDetails(book.id)}
+                        isExpanded={expandedBookId === book.id}
+                        removeBook={removeBook} />
                 </li>
             )}
         </ul>

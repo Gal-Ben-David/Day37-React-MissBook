@@ -4,14 +4,14 @@ import { BookDetails } from "../cmps/BookDetails.jsx"
 
 const { useState } = React
 
-export function BookPreview({ book, onToggleMoreDetails, isExpanded }) {
+export function BookPreview({ book, onToggleMoreDetails, isExpanded, removeBook }) {
 
     function toggleMoreDetails() {
         onToggleMoreDetails()
     }
 
-    function onToggleEditBook() {
-        setEditBookMode(isEditBookMode => !isEditBookMode)
+    function onRemoveBook(bookId) {
+        removeBook(bookId)
     }
 
     const {
@@ -34,6 +34,7 @@ export function BookPreview({ book, onToggleMoreDetails, isExpanded }) {
             <div>
                 <Link to={`/book/edit/${book.id}`}><button>Edit</button></Link>
                 <Link to={`/book/review/${book.id}`}><button>Show Reviews</button></Link>
+                <button onClick={() => onRemoveBook(book.id)}><i className="fa-solid fa-trash"></i></button>
             </div>
 
             <button onClick={toggleMoreDetails}>{!isExpanded ? 'More Details' : 'Show Less'}</button>

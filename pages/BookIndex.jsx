@@ -1,7 +1,7 @@
 const { Link } = ReactRouterDOM
 
 import { bookService } from "../services/book.service.js"
-import { BookList } from "../cmps/bookList.jsx"
+import { BookList } from "../cmps/BookList.jsx"
 import { BookFilter } from "../cmps/BookFilter.jsx"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
@@ -42,6 +42,14 @@ export function BookIndex() {
         setEditBookMode(isEditBookMode => !isEditBookMode)
     }
 
+    function removeBook(bookId) {
+        bookService.remove(bookId)
+            .then(() => {
+                setBooks(prevBooks => prevBooks.filter(book => book.id !== bookId))
+            })
+            .catch(err => console.error('Error removing book:', err))
+    }
+
     if (!books) return <div>Loading...</div>
 
     return (
@@ -59,7 +67,7 @@ export function BookIndex() {
             {/* <button onClick={onToggleEditBook}>Add Book</button>
             {(isEditBookMode) && <BookEdit onSetNewBook={onSetNewBook} />} */}
 
-            <BookList books={books} />
+            <BookList books={books} removeBook={removeBook} />
         </article >
     )
 }
