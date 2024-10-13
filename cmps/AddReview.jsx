@@ -10,13 +10,14 @@ export function AddReview() {
     const [starsReview, setStarsReview] = useState(0)
     const [isAddedReview, setIsAddedReview] = useState(false)
     const [isDeletedReview, setIsDeletedReview] = useState(false)
+    const [cmpType, setCmpType] = useState('select')
 
     const [fullReview, setFullReview] = useState({
         fullname: '',
         rating: 0,
         date: '1990-03-28',
     })
-    const navigate = useNavigate()
+
     const { bookId } = useParams()
 
     useEffect(() => {
@@ -110,15 +111,62 @@ export function AddReview() {
                     />
                 </div>
 
-                <div className="review-rating">
+                <div>
+                    <label>
+                        <input
+                            type="radio"
+                            value="select"
+                            name="rating"
+                            checked={cmpType === 'select'}
+                            onChange={ev => setCmpType(ev.target.value)}
+                        />
+                        Select List
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input
+                            type="radio"
+                            value="textbox"
+                            name="rating"
+                            checked={cmpType === 'textbox'}
+                            onChange={ev => setCmpType(ev.target.value)}
+                        />
+                        Textbox
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input
+                            type="radio"
+                            value="stars"
+                            name="rating"
+                            checked={cmpType === 'stars'}
+                            onChange={ev => setCmpType(ev.target.value)}
+                        />
+                        Stars
+                    </label>
+                </div>
+
+                {/* <select value={cmpType} onChange={ev => setCmpType(ev.target.value)}>
+                    <option>select</option>
+                    <option>textbox</option>
+                    <option>stars</option>
+                </select> */}
+
+                <section className="dynamic-cmps">
+                    <DynamicCmp cmpType={cmpType} onSetRating={onSetRating} />
+                </section>
+
+                {cmpType === 'stars' && <div className="review-rating">
                     {[...Array(5)].map((_, i) =>
                         <img key={i} src={`assets/img/${i < starsReview ? 'full' : 'empty'}-star.png`}
                             onClick={() => onSetRating(i + 1)} />
                     )}
-                </div>
+                </div>}
 
                 <div className="review-date">
-                    <label htmlFor="date">Date</label>
+                    <label htmlFor="date">Read At</label>
                     <input
                         onChange={handleChange}
                         value={fullReview.date}
@@ -160,4 +208,44 @@ export function AddReview() {
 
     )
 
+}
+
+function DynamicCmp(props) {
+
+    switch (props.cmpType) {
+        case 'select':
+            return <RateBySelect {...props} />
+        case 'textbox':
+            return <RateByTextbox {...props} />
+        default:
+            return null
+    }
+}
+
+function RateBySelect({ onSetRating }) {
+    return (
+        <div> <span>Rating &nbsp;</span>
+            <select onChange={(event) => onSetRating(+event.target.value)}>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+    )
+}
+
+function RateByTextbox({ onSetRating }) {
+    return (
+        <div>
+            <label htmlFor="rating">Rating</label>
+            <input
+                type="text"
+                id="rating"
+                placeholder="Enter rating"
+                onChange={(event) => onSetRating(+event.target.value)}
+            />
+        </div>
+    )
 }
