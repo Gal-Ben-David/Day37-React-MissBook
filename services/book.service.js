@@ -458,7 +458,9 @@ export const bookService = {
     getDefaultFilter,
     addReview,
     deleteReview,
-    addGoogleBook
+    addGoogleBook,
+    fetchBookFromGoogleById,
+    fetchBookFromGoogleByTitle
 }
 
 function query(filterBy = {}) {
@@ -513,6 +515,27 @@ function deleteReview(bookId, reviewIdx) {
             book.reviews.splice(reviewIdx, 1)
             return storageService.put(BOOK_KEY, book)
         })
+}
+
+function fetchBookFromGoogleByTitle(searchTerm) {
+    return fetch(`https://www.googleapis.com/books/v1/volumes?printType=books&q=${searchTerm}`)
+        .then(response => response.json())
+        .then(data => {
+            const infoList = data.items
+            const customList = infoList.map(book => {
+                return { title: book.volumeInfo.title, id: book.id }
+            })
+            console.log(customList)
+
+            return customList
+        })
+}
+
+function fetchBookFromGoogleById(bookId) {
+    return fetch(`https://www.googleapis.com/books/v1/volumes/${bookId}`)
+        .then(response => response.json())
+        .then(addGoogleBook)
+        .then(convertedBook => bookService.save(convertedBook, true))
 }
 
 function addGoogleBook(googleBook) {

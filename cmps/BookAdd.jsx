@@ -17,17 +17,7 @@ export function BookAdd() {
     }, [searchBook])
 
     function fetchBooksFromGoogle() {
-        return fetch(`https://www.googleapis.com/books/v1/volumes?printType=books&q=${searchBook}`)
-            .then(response => response.json())
-            .then(data => {
-                const infoList = data.items
-                const customList = infoList.map(book => {
-                    return { title: book.volumeInfo.title, id: book.id }
-                })
-                console.log(customList)
-
-                return customList
-            })
+        bookService.fetchBookFromGoogleByTitle(searchBook)
             .then(setBooks)
             .catch(err => console.error('Error:', err))
     }
@@ -37,11 +27,8 @@ export function BookAdd() {
     }
 
     function addBookToDB(bookId) {
-        return fetch(`https://www.googleapis.com/books/v1/volumes/${bookId}`)
-            .then(response => response.json())
-            .then(bookService.addGoogleBook)
-            .then(convertedBook => bookService.save(convertedBook, true)).
-            then(book => {
+        bookService.fetchBookFromGoogleById(bookId)
+            .then(book => {
                 console.log('Book Saved')
                 showSuccessMsg('Book has been saved successfully')
             })
