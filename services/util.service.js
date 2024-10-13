@@ -1,4 +1,13 @@
 
+export const utilService = {
+    makeId,
+    makeLorem,
+    getRandomIntInclusive,
+    loadFromStorage,
+    saveToStorage,
+    debounce
+}
+
 export function makeId(length = 6) {
     var txt = ''
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
@@ -60,4 +69,14 @@ export function animateCSS(el, animation = 'bounce', isRemoveClass = true) {
 
         el.addEventListener('animationend', handleAnimationEnd, { once: true })
     })
+}
+
+export function debounce(func, delay) {
+    let timeoutId
+    return (...args) => {
+        clearTimeout(timeoutId)
+        timeoutId = setTimeout(() => {
+            func(...args)
+        }, delay)
+    }
 }

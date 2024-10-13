@@ -1,14 +1,17 @@
 import { bookService } from "../services/book.service.js"
+import { utilService } from "../services/util.service.js"
 
 const { useNavigate } = ReactRouterDOM
 
-const { useState, useEffect } = React
+const { useState, useEffect, useRef } = React
 
 export function BookAdd() {
 
     const [searchBook, setSearchBook] = useState(null)
     const [books, setBooks] = useState([])
     const navigate = useNavigate()
+
+    const onSearchBooksDebounce = useRef(utilService.debounce(handleChange, 300)).current
 
     useEffect(() => {
         if (searchBook) {
@@ -44,12 +47,12 @@ export function BookAdd() {
     return (
         <section>
             <div className='add-book'>
-                <label></label>
+                <label>Search for a book</label>
                 <input
                     type='search'
                     placeholder='Search'
                     name='search'
-                    onChange={handleChange}
+                    onChange={onSearchBooksDebounce}
                 />
             </div>
 
